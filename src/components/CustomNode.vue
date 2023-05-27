@@ -5,12 +5,12 @@ import { defineModel, defineProps, markRaw } from "vue";
 import Component1 from "./Component1.vue";
 import Component2 from "./Component2.vue";
 
-type TCustomNode = {
+type TCustomNodeProps = {
   componentName: TComponent;
   id: string;
 };
 
-const { componentName } = defineProps<TCustomNode>();
+const { componentName, id } = defineProps<TCustomNodeProps>();
 
 defineEmits<{
   close: [id: string];
