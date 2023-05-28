@@ -8,6 +8,7 @@ import { v4 } from "uuid";
 const LOCAL_STORAGE_KEY = "workspace";
 const list: TComponent[] = ["Component1", "Component2"];
 const elements = ref<Node[]>([]);
+const eiei = ref<string>("🙂");
 
 const { zoomIn, zoomOut, toObject } = useVueFlow();
 
@@ -18,7 +19,7 @@ function randomPosition() {
   };
 }
 
-function removeElement(id: string) {
+function removeNode(id: string) {
   elements.value = elements.value.filter((v) => v.id != id);
 }
 
@@ -48,12 +49,16 @@ onMounted(() => {
     elements.value = JSON.parse(save);
   }
 });
+
+function test() {
+  console.log("hello");
+}
 </script>
 
 <template>
   <div class="m-auto h-screen w-full bg-slate-900 flex flex-col">
     <div class="h-200px p-4 flex justify-between items-center">
-      <div class="text-4xl">🙂</div>
+      <div class="text-4xl">{{ eiei }}</div>
       <div class="space-x-2">
         <button
           class="border border-pink-500 p-2 bg-white rounded-lg"
@@ -87,12 +92,17 @@ onMounted(() => {
         </button>
       </div>
     </div>
-    <VueFlow v-model="elements" class="flex-1">
+    <VueFlow
+      v-model="elements"
+      class="flex-1"
+      @node-drag="() => (eiei = '😀')"
+      @node-drag-stop="() => (eiei = '🙂')"
+    >
       <template #node-custom="{ data, id }">
         <CustomNode
           :component-name="data.componentName"
           :id="id"
-          @close="removeElement"
+          @close="removeNode"
         />
       </template>
       <div

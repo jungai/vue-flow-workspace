@@ -1,9 +1,7 @@
 <script lang="ts" setup>
-import type { Raw } from "vue";
+import type { Component } from "vue";
 import type { TComponent } from "../types";
-import { defineModel, defineProps, markRaw } from "vue";
-import Component1 from "./Component1.vue";
-import Component2 from "./Component2.vue";
+import { defineModel, defineProps, defineAsyncComponent } from "vue";
 
 type TCustomNodeProps = {
   componentName: TComponent;
@@ -16,9 +14,9 @@ defineEmits<{
   close: [id: string];
 }>();
 
-const components: Record<TComponent, Raw<any>> = {
-  Component1: markRaw(Component1),
-  Component2: markRaw(Component2),
+const components: Record<TComponent, Component> = {
+  Component1: defineAsyncComponent(() => import("./Component1.vue")),
+  Component2: defineAsyncComponent(() => import("./Component2.vue")),
 };
 
 const modelValue = defineModel();
