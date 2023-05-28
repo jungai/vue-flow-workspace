@@ -49,10 +49,6 @@ onMounted(() => {
     elements.value = JSON.parse(save);
   }
 });
-
-function test() {
-  console.log("hello");
-}
 </script>
 
 <template>
