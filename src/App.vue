@@ -26,9 +26,11 @@ function removeNode(id: string) {
 function addNode(name: TComponent) {
   elements.value.push({
     id: v4(),
-    type: "custom",
+    type: "resizable",
     data: {
       componentName: name,
+      w: 400,
+      h: 400,
     },
     position: randomPosition(),
   });
@@ -52,7 +54,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="m-auto h-screen w-full bg-slate-900 flex flex-col">
+  <div class="m-auto h-screen h-[100dvh] w-full bg-slate-900 flex flex-col">
     <div class="h-200px p-4 flex justify-between items-center">
       <div class="text-4xl">{{ eiei }}</div>
       <div class="space-x-2">
@@ -94,10 +96,11 @@ onMounted(() => {
       @node-drag="() => (eiei = '😀')"
       @node-drag-stop="() => (eiei = '🙂')"
     >
-      <template #node-custom="{ data, id }">
+      <template #node-resizable="{ data, id, dimensions }">
         <CustomNode
           :component-name="data.componentName"
           :id="id"
+          :dimensions="dimensions"
           @close="removeNode"
         />
       </template>
